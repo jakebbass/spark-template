@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     
     # CORS
     allowed_origins: list[str] = ["http://localhost:3000", "http://frontend:3000"]
+    ALLOWED_ORIGINS: list[str] = ["*"]
     
     # Environment
     debug: bool = False
