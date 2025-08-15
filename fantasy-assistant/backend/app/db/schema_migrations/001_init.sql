@@ -1,0 +1,1 @@
+-- Initial DB schema (see .github/bild-prompt.md for details)

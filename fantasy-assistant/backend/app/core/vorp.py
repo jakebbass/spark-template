@@ -1,0 +1,1 @@
+# VORP logic stub
