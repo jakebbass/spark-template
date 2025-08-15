@@ -10,7 +10,8 @@ from app.db.base import get_db
 from app.db.models import Player, Projection, HistoricalStats, Injury, ADP, DepthChart
 from app.core.scoring import calculate_fantasy_points, get_default_scoring
 from app.core.vorp import calculate_vorp, calculate_tiers
-from app.core.config import settings
+from app.core.monte_carlo import batch_simulate_players
+from app.core.schedule_pockets import batch_analyze_schedules
 
 router = APIRouter()
 
@@ -91,6 +92,12 @@ async def get_rankings(
             positions = set(p['position'] for p in players)
             for position in positions:
                 players = calculate_tiers(players, position)
+            
+            # Add Monte Carlo simulations
+            players = batch_simulate_players(players)
+            
+            # Add schedule analysis
+            players = batch_analyze_schedules(players)
         
         # Sort by VORP descending, then fantasy points descending
         players.sort(key=lambda x: (x.get('vorp', 0), x.get('fantasy_points', 0)), reverse=True)
