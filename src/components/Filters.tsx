@@ -109,11 +109,11 @@ export default function Filters({ filters, onFiltersChange, players }: FiltersPr
         <div>
           <label className="text-sm font-medium mb-2 block">Tier</label>
           <Select
-            value={filters.tier?.toString() || ''}
+            value={filters.tier?.toString() || 'all'}
             onValueChange={(value) => 
               onFiltersChange({ 
                 ...filters, 
-                tier: value ? parseInt(value) : null 
+                tier: value === 'all' ? null : parseInt(value) 
               })
             }
           >
@@ -121,7 +121,7 @@ export default function Filters({ filters, onFiltersChange, players }: FiltersPr
               <SelectValue placeholder="Any tier" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Any tier</SelectItem>
+              <SelectItem value="all">Any tier</SelectItem>
               <SelectItem value="1">Tier 1</SelectItem>
               <SelectItem value="2">Tier 2</SelectItem>
               <SelectItem value="3">Tier 3</SelectItem>
@@ -134,11 +134,11 @@ export default function Filters({ filters, onFiltersChange, players }: FiltersPr
         <div>
           <label className="text-sm font-medium mb-2 block">Bye Week</label>
           <Select
-            value={filters.byeWeek?.toString() || ''}
+            value={filters.byeWeek?.toString() || 'all'}
             onValueChange={(value) => 
               onFiltersChange({ 
                 ...filters, 
-                byeWeek: value ? parseInt(value) : null 
+                byeWeek: value === 'all' ? null : parseInt(value) 
               })
             }
           >
@@ -146,7 +146,7 @@ export default function Filters({ filters, onFiltersChange, players }: FiltersPr
               <SelectValue placeholder="Any bye" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Any bye</SelectItem>
+              <SelectItem value="all">Any bye</SelectItem>
               {Array.from(new Set(players.map(p => p.byeWeek)))
                 .sort((a, b) => a - b)
                 .map(week => (
