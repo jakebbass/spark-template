@@ -1,0 +1,21 @@
+player_name,team,position,sleeper_id,pass_yd,pass_td,int,rush_yd,rush_td,rec,rec_yd,rec_td,fumble
+Josh Allen,BUF,QB,4881,4500,35,12,600,8,0,0,0,3
+Lamar Jackson,BAL,QB,4866,3800,28,8,900,7,0,0,0,4
+Aaron Rodgers,NYJ,QB,421,4200,30,10,150,2,0,0,0,2
+Patrick Mahomes,KC,QB,4046,4800,38,14,200,4,0,0,0,3
+Joe Burrow,CIN,QB,6794,4400,32,12,100,3,0,0,0,2
+Derrick Henry,BAL,RB,2216,0,0,0,1200,12,25,200,2,3
+Christian McCaffrey,SF,RB,2133,0,0,0,1400,14,80,600,4,2
+Saquon Barkley,PHI,RB,4663,0,0,0,1300,10,55,400,3,4
+Josh Jacobs,GB,RB,4217,0,0,0,1100,8,40,300,2,3
+Jonathan Taylor,IND,RB,6770,0,0,0,1250,11,45,350,3,2
+Tyreek Hill,MIA,WR,1479,0,0,0,50,1,120,1500,10,1
+CeeDee Lamb,DAL,WR,6786,0,0,0,30,0,115,1400,9,1
+Ja'Marr Chase,CIN,WR,7611,0,0,0,20,0,110,1350,8,0
+Justin Jefferson,MIN,WR,6797,0,0,0,15,0,100,1300,7,1
+Davante Adams,LV,WR,2319,0,0,0,10,0,105,1250,8,0
+Travis Kelce,KC,TE,1466,0,0,0,5,0,95,1100,8,1
+T.J. Hockenson,MIN,TE,5850,0,0,0,0,0,85,900,6,2
+Mark Andrews,BAL,TE,4381,0,0,0,10,0,75,850,7,1
+George Kittle,SF,TE,2197,0,0,0,20,1,80,950,7,2
+Kyle Pitts,ATL,TE,7671,0,0,0,5,0,70,800,5,1
