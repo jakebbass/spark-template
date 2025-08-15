@@ -2,6 +2,86 @@
 
 FastAPI backend for the AI Fantasy Draft Assistant.
 
+## 🎯 Phase 1 Complete: Database & Models ✅
+
+This phase implements the complete database layer and player ID mapping system.
+
+### ✅ Completed Features
+
+- **Database Schema**: Complete PostgreSQL schema with 9 tables (players, projections, historical_stats, depth_charts, injuries, adp, draft_picks, user_settings, leagues)
+- **SQLAlchemy Models**: Async models with proper relationships and foreign keys
+- **Database Engine**: Async PostgreSQL engine with session management
+- **Migration System**: Working migrate.sh script that applies schema migrations
+- **Player ID Mapping**: Full cross-platform ID mapping system supporting Sleeper, GSIS, ESPN, Yahoo, and Pro Football Reference IDs
+
+### Database Tables
+
+- `players` - Master player table with cross-reference IDs
+- `projections` - Fantasy point projections by source
+- `historical_stats` - Past season performance data
+- `depth_charts` - Team depth charts by position
+- `injuries` - Injury status and notes
+- `adp` - Average draft position across platforms
+- `draft_picks` - Record of picks made in leagues  
+- `user_settings` - User scoring and strategy preferences
+- `leagues` - League configuration and settings
+
+### ID Mapping System
+
+The `IDMapper` class (`app/services/id_map.py`) provides:
+- Cross-platform player ID normalization (Sleeper ↔ ESPN ↔ Yahoo ↔ GSIS ↔ PFR)
+- CSV-based fallback data (40+ top players included)
+- Database integration for bulk xref updates
+- Name/team to external ID lookup  
+- External ID to internal player resolution
+
+## Quick Start
+
+### Development Setup
+
+#### Option 1: Using pyproject.toml
+```bash
+pip install -e .
+```
+
+#### Option 2: Using requirements.txt (fallback)
+```bash
+pip install -r requirements.txt
+```
+
+### Database Setup
+
+1. Start PostgreSQL:
+```bash
+cd ../ops && docker compose up -d db
+```
+
+2. Run migrations:
+```bash
+cd ../ops && ./migrate.sh
+```
+
+3. Verify setup:
+```bash
+docker exec ops-db-1 psql -U postgres -d fantasy -c "\\dt"
+```
+
+### Testing
+
+#### Unit Tests
+```bash
+pytest tests/
+```
+
+#### ID Mapper Verification
+```bash
+python -c "
+from app.services.id_map import id_mapper
+print('Josh Allen Sleeper ID:', id_mapper.get_sleeper_id('Josh Allen', 'BUF'))
+print('All Mahomes xrefs:', id_mapper.get_all_xrefs('Patrick Mahomes', 'KC'))
+"
+```
+
 ## Features
 
 - RESTful API for player rankings, draft tracking, and advice
