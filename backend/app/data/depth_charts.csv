@@ -1,0 +1,21 @@
+team,position,player_name,sleeper_id,rank
+BUF,QB,Josh Allen,4881,1
+BAL,QB,Lamar Jackson,4866,1
+NYJ,QB,Aaron Rodgers,421,1
+KC,QB,Patrick Mahomes,4046,1
+CIN,QB,Joe Burrow,6794,1
+BAL,RB,Derrick Henry,2216,1
+SF,RB,Christian McCaffrey,2133,1
+PHI,RB,Saquon Barkley,4663,1
+GB,RB,Josh Jacobs,4217,1
+IND,RB,Jonathan Taylor,6770,1
+MIA,WR,Tyreek Hill,1479,1
+DAL,WR,CeeDee Lamb,6786,1
+CIN,WR,Ja'Marr Chase,7611,1
+MIN,WR,Justin Jefferson,6797,1
+LV,WR,Davante Adams,2319,1
+KC,TE,Travis Kelce,1466,1
+MIN,TE,T.J. Hockenson,5850,1
+BAL,TE,Mark Andrews,4381,1
+SF,TE,George Kittle,2197,1
+ATL,TE,Kyle Pitts,7671,1

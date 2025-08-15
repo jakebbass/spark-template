@@ -1,0 +1,21 @@
+player_name,team,position,sleeper_id,season,pass_yd,pass_td,int,rush_yd,rush_td,rec,rec_yd,rec_td,fumble,games
+Josh Allen,BUF,QB,4881,2023,4306,29,18,483,8,0,0,0,5,17
+Lamar Jackson,BAL,QB,4866,2023,3678,24,7,821,5,0,0,0,4,17
+Aaron Rodgers,NYJ,QB,421,2023,112,0,0,7,0,0,0,0,0,4
+Patrick Mahomes,KC,QB,4046,2023,4183,27,14,389,1,0,0,0,3,16
+Joe Burrow,CIN,QB,6794,2023,2309,15,6,114,1,0,0,0,1,10
+Derrick Henry,BAL,RB,2216,2023,1167,12,0,33,0,0,0,2,17
+Christian McCaffrey,SF,RB,2133,2023,1459,14,0,564,7,0,0,3,16
+Saquon Barkley,PHI,RB,4663,2023,962,10,0,280,0,0,0,2,16
+Josh Jacobs,GB,RB,4217,2023,805,6,0,309,1,0,0,4,15
+Jonathan Taylor,IND,RB,6770,2023,741,7,0,224,0,0,0,1,10
+Tyreek Hill,MIA,WR,1479,2023,0,0,0,39,1,119,1799,13,0,16
+CeeDee Lamb,DAL,WR,6786,2023,0,0,0,5,0,135,1749,12,1,17
+Ja'Marr Chase,CIN,WR,7611,2023,0,0,0,12,0,100,1216,7,0,16
+Justin Jefferson,MIN,WR,6797,2023,0,0,0,21,0,68,1074,5,1,10
+Davante Adams,LV,WR,2319,2023,0,0,0,22,0,103,1144,8,1,17
+Travis Kelce,KC,TE,1466,2023,0,0,0,16,0,93,984,5,1,16
+T.J. Hockenson,MIN,TE,5850,2023,0,0,0,0,0,95,960,5,0,15
+Mark Andrews,BAL,TE,4381,2023,0,0,0,2,0,45,544,6,0,10
+George Kittle,SF,TE,2197,2023,0,0,0,8,1,65,1020,6,1,16
+Kyle Pitts,ATL,TE,7671,2023,0,0,0,0,0,53,667,3,0,17
