@@ -13,6 +13,7 @@ COPY pyproject.toml ./
 
 # Install Python dependencies
 RUN pip install -e .
+RUN pip install pydantic-settings
 
 # Copy application code
 COPY . .
