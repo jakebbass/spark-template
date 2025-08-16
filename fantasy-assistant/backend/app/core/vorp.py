@@ -36,8 +36,11 @@ def calculate_vorp(players: List[Dict[str, Any]], position_baselines: Dict[str, 
     for pos, pos_players in position_players.items():
         sorted_players = sorted(pos_players, key=lambda p: p.get("fantasy_points", 0), reverse=True)
         baseline_rank = position_baselines.get(pos, 12)
-        if len(sorted_players) >= baseline_rank:
+        # If there are fewer players than the requested baseline_rank, use the last player's points
+        if len(sorted_players) >= baseline_rank and baseline_rank > 0:
             baselines[pos] = sorted_players[baseline_rank - 1].get("fantasy_points", 0)
+        elif len(sorted_players) > 0:
+            baselines[pos] = sorted_players[-1].get("fantasy_points", 0)
         else:
             baselines[pos] = 0
     
@@ -46,7 +49,8 @@ def calculate_vorp(players: List[Dict[str, Any]], position_baselines: Dict[str, 
         pos = player.get("position", "")
         fantasy_points = player.get("fantasy_points", 0)
         baseline = baselines.get(pos, 0)
-        player["vorp"] = max(0, fantasy_points - baseline)
+    # VORP can be negative if below baseline; tests expect direct subtraction
+    player["vorp"] = fantasy_points - baseline
     
     return players
 

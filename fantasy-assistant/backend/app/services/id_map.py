@@ -147,7 +147,8 @@ class IDMapper:
             try:
                 # Get all players
                 result = await session.execute(select(Player))
-                players = (await result.scalars()).all()
+                # `result.scalars()` returns a ScalarResult, do not await it.
+                players = result.scalars().all()
 
                 # Add debugging logs
                 import logging
