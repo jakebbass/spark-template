@@ -1,0 +1,21 @@
+#! cache-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: cache-published
+    namespace: ops
+    labels:
+        com.docker.compose.project: ops
+        com.docker.compose.service: cache
+spec:
+    selector:
+        com.docker.compose.project: ops
+        com.docker.compose.service: cache
+    ports:
+        - name: cache-6379
+          port: 6379
+          protocol: TCP
+          targetPort: cache-6379
+
+# check if there is at least one published port

@@ -1,0 +1,57 @@
+#! api-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: api
+    namespace: ops
+    labels:
+        com.docker.compose.project: ops
+        com.docker.compose.service: api
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: ops
+            com.docker.compose.service: api
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: ops
+                com.docker.compose.service: api
+                com.docker.compose.network.default: "true"
+        spec:
+            restartPolicy: unless-stopped
+            containers:
+                - name: api
+                  image: ops-api
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: DEBUG
+                      value: "false"
+                    - name: INJURIES_API_KEY
+                      value: ""
+                    - name: LLM_API_KEY
+                      value: ""
+                    - name: POSTGRES_URL
+                      value: "postgresql+asyncpg://postgres:postgres@db:5432/fantasy"
+                    - name: PROJECTIONS_API_KEY
+                      value: ""
+                    - name: REDIS_URL
+                      value: "redis://cache:6379/0"
+                    - name: SCORING_JSON
+                      value: "{\"pass_yd\":0.04,\"pass_td\":4,\"int\":-2,\"rush_yd\":0.1,\"rush_td\":6,\"rec\":1,\"rec_yd\":0.1,\"rec_td\":6,\"fumble\":-2}"
+                    - name: SLEEPER_LEAGUE_ID
+                      value: ""
+                  livenessProbe:
+                    exec:
+                        command: ['curl -f http://localhost:8000/healthz']
+                    periodSeconds: 30
+                    initialDelaySeconds: 40
+                    timeoutSeconds: 10
+                    failureThreshold: 3
+                  ports:
+                    - name: api-8000
+                      containerPort: 8000

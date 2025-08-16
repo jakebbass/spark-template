@@ -1,0 +1,8 @@
+#! 0-ops-namespace.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: ops
+    labels:
+        com.docker.compose.project: ops

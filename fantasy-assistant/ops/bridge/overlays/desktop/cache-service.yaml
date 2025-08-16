@@ -1,0 +1,11 @@
+#! cache-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: cache-published
+    namespace: ops
+spec:
+    type: LoadBalancer
+
+# check if there is at least one published port

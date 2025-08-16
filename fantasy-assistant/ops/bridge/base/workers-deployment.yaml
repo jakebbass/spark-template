@@ -1,0 +1,45 @@
+#! workers-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: workers
+    namespace: ops
+    labels:
+        com.docker.compose.project: ops
+        com.docker.compose.service: workers
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: ops
+            com.docker.compose.service: workers
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: ops
+                com.docker.compose.service: workers
+                com.docker.compose.network.default: "true"
+        spec:
+            restartPolicy: unless-stopped
+            containers:
+                - name: workers
+                  image: ops-workers
+                  imagePullPolicy: IfNotPresent
+                  command: [python app/workers/scheduler.py]
+                  env:
+                    - name: DEBUG
+                      value: "false"
+                    - name: INJURIES_API_KEY
+                      value: ""
+                    - name: POSTGRES_URL
+                      value: "postgresql+asyncpg://postgres:postgres@db:5432/fantasy"
+                    - name: PROJECTIONS_API_KEY
+                      value: ""
+                    - name: REDIS_URL
+                      value: "redis://cache:6379/0"
+                  ports:
+                    - name: workers-8000
+                      containerPort: 8000
