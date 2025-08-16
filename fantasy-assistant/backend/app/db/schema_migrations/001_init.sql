@@ -16,7 +16,8 @@ CREATE TABLE players (
     height VARCHAR(10),
     weight INTEGER,
     xrefs JSONB DEFAULT '{}',
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    CONSTRAINT chk_position CHECK (position IN ('QB', 'RB', 'WR', 'TE', 'K', 'DST'))
 );
 
 -- Projections table
@@ -45,7 +46,8 @@ CREATE TABLE depth_charts (
     position VARCHAR(10) NOT NULL,
     player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
     rank INTEGER NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    CONSTRAINT unique_team_position_rank UNIQUE (team, position, rank)
 );
 
 -- Injuries table

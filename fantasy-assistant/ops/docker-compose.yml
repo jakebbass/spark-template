@@ -1,25 +1,6 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  db:
-    image: postgres:16-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: fantasy
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./init-db:/docker-entrypoint-initdb.d
-    ports:
-      - "5432:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   # Redis Cache
   cache:
     image: redis:7-alpine
@@ -39,7 +20,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
-      - POSTGRES_URL=postgresql+asyncpg://postgres:postgres@db:5432/fantasy
+      - POSTGRES_URL=${POSTGRES_URL}
       - REDIS_URL=redis://cache:6379/0
       - PROJECTIONS_API_KEY=${PROJECTIONS_API_KEY:-}
       - INJURIES_API_KEY=${INJURIES_API_KEY:-}
@@ -50,8 +31,6 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      db:
-        condition: service_healthy
       cache:
         condition: service_healthy
     healthcheck:
@@ -83,14 +62,13 @@ services:
     restart: unless-stopped
     command: ["python", "app/workers/scheduler.py"]
     environment:
-      - POSTGRES_URL=postgresql+asyncpg://postgres:postgres@db:5432/fantasy
+      - POSTGRES_URL=${POSTGRES_URL}
       - REDIS_URL=redis://cache:6379/0
       - PROJECTIONS_API_KEY=${PROJECTIONS_API_KEY:-}
       - INJURIES_API_KEY=${INJURIES_API_KEY:-}
       - DEBUG=false
+      - PYTHONPATH=/app
     depends_on:
-      db:
-        condition: service_healthy
       cache:
         condition: service_healthy
 
