@@ -129,6 +129,7 @@ class IDMapper:
         """Update cross-reference IDs for a player in the database."""
         async with AsyncSessionLocal() as session:
             try:
+                logger.debug("Executing update statement for player xrefs")
                 await session.execute(
                     update(Player)
                     .where(Player.id == player_id)

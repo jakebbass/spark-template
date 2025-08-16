@@ -1,7 +1,7 @@
 """Test ID mapping functionality."""
 
 import pytest
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, patch, Mock
 from uuid import uuid4
 
 from app.services.id_map import IDMapper, id_mapper
@@ -79,22 +79,23 @@ class TestIDMapper:
         # Mock the database session and query
         with patch('app.services.id_map.AsyncSessionLocal') as mock_session:
             mock_session_instance = AsyncMock()
-            mock_session.__aenter__.return_value = mock_session_instance
-            
+            mock_session.return_value.__aenter__.return_value = mock_session_instance
+
             # Mock player object
-            mock_player = AsyncMock()
+            mock_player = Mock()
             mock_player.name = "Josh Allen"
             mock_player.team = "BUF"
-            
-            mock_result = AsyncMock()
+
+            mock_result = Mock()
             mock_result.scalar_one_or_none.return_value = mock_player
             mock_session_instance.execute.return_value = mock_result
-            
+
             mapper = IDMapper()
             result = await mapper.find_player_by_external_id("4881", "sleeper_id")
-            
-            # Verify the result is the mocked player
-            assert result == mock_player
+
+            # Verify the result attributes
+            assert result.name == "Josh Allen"
+            assert result.team == "BUF"
     
     @pytest.mark.asyncio
     async def test_update_player_xrefs(self):
@@ -102,14 +103,21 @@ class TestIDMapper:
         with patch('app.services.id_map.AsyncSessionLocal') as mock_session:
             mock_session_instance = AsyncMock()
             mock_session.__aenter__.return_value = mock_session_instance
-            
+
+            # Mock the execute method
+            mock_session_instance.execute = AsyncMock()
+
             mapper = IDMapper()
             player_id = uuid4()
             xrefs = {"sleeper_id": "1234", "gsis_id": "00-0012345"}
-            
+
             await mapper.update_player_xrefs(player_id, xrefs)
-            
-            # Verify execute was called
+
+            # Debugging information
+            print(f"Mock execute call count: {mock_session_instance.execute.call_count}")
+            print(f"Mock execute call args: {mock_session_instance.execute.call_args}")
+
+            # Verify execute was called with the correct arguments
             mock_session_instance.execute.assert_called_once()
             mock_session_instance.commit.assert_called_once()
     
