@@ -129,12 +129,11 @@ class IDMapper:
         """Update cross-reference IDs for a player in the database."""
         async with AsyncSessionLocal() as session:
             try:
-                logger.debug("Executing update statement for player xrefs")
-                await session.execute(
-                    update(Player)
-                    .where(Player.id == player_id)
-                    .values(xrefs=xrefs)
-                )
+                logger.debug(f"Starting update for player_id: {player_id}, xrefs: {xrefs}")
+                update_stmt = update(Player).where(Player.id == player_id).values(xrefs=xrefs)
+                logger.debug(f"Constructed update statement: {update_stmt}")
+                await session.execute(update_stmt)
+                logger.debug("Executed update statement")
                 await session.commit()
                 logger.info(f"Updated xrefs for player {player_id}: {xrefs}")
             except Exception as e:
@@ -148,7 +147,7 @@ class IDMapper:
             try:
                 # Get all players
                 result = await session.execute(select(Player))
-                players = result.scalars().all()
+                players = (await result.scalars()).all()
                 
                 updated_count = 0
                 for player in players:
