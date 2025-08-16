@@ -139,11 +139,19 @@ class TestIDMapper:
             mock_player.team = "BUF"
             mock_player.xrefs = {}  # Empty xrefs to trigger update
             
+            # Add logging to confirm mock behavior
+            import logging
+            logging.basicConfig(level=logging.DEBUG)
+            logger = logging.getLogger("test")
+
+            # Refine mock setup for proper async behavior
             mock_result = AsyncMock()
             mock_scalars = AsyncMock()
             mock_scalars.all = AsyncMock(return_value=[mock_player])
             mock_result.scalars = AsyncMock(return_value=mock_scalars)
             mock_session_instance.execute = AsyncMock(return_value=mock_result)
+
+            logger.debug("Mock setup complete. Running test...")
             
             mapper = IDMapper()
             updated_count = await mapper.bulk_update_xrefs_from_mappings()
