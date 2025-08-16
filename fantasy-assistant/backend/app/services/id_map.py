@@ -148,14 +148,21 @@ class IDMapper:
                 # Get all players
                 result = await session.execute(select(Player))
                 players = (await result.scalars()).all()
-                
+
+                # Add debugging logs
+                import logging
+                logging.basicConfig(level=logging.DEBUG)
+                logger = logging.getLogger("bulk_update_xrefs")
+                logger.debug("Players variable type: %s", type(players))
+                logger.debug("Players variable value: %s", players)
+
                 updated_count = 0
                 for player in players:
                     xrefs = self.get_all_xrefs(player.name, player.team)
                     if xrefs and xrefs != player.xrefs:
                         player.xrefs = xrefs
                         updated_count += 1
-                
+
                 if updated_count > 0:
                     await session.commit()
                     logger.info(f"Updated xrefs for {updated_count} players")
