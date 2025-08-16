@@ -144,12 +144,12 @@ class TestIDMapper:
             logging.basicConfig(level=logging.DEBUG)
             logger = logging.getLogger("test")
 
-            # Refine mock setup for proper async behavior
+            # Fix mock setup to resolve scalars() properly
             mock_result = AsyncMock()
             mock_scalars = AsyncMock()
-            mock_scalars.all = AsyncMock(return_value=[mock_player])
-            mock_result.scalars = AsyncMock(return_value=mock_scalars)
-            mock_session_instance.execute = AsyncMock(return_value=mock_result)
+            mock_scalars.all.return_value = [mock_player]  # Ensure all() returns an iterable
+            mock_result.scalars.return_value = mock_scalars
+            mock_session_instance.execute.return_value = mock_result
 
             logger.debug("Mock setup complete. Running test...")
             
